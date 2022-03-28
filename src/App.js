@@ -10,7 +10,7 @@ function App() {
         <p>
           Ja sam Vlatko
         </p>
-        <a className="App-link" target="_blank" href="https://github.com/vlitki/react-example">Github repository</a>
+        <a className="App-link" target="_blank" rel="noopener noreferrer" href="https://github.com/vlitki/react-example">Github repository</a>
         <a
           className="App-link"
           href="https://reactjs.org"

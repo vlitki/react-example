@@ -10,6 +10,7 @@ function App() {
         <p>
           Ja sam Vlatko
         </p>
+        <p>Your unique ID is: {nanoid()} </p>
         <a className="App-link" target="_blank" rel="noopener noreferrer" href="https://github.com/vlitki/react-example">Github repository</a>
         <a
           className="App-link"
@@ -24,4 +25,6 @@ function App() {
   );
 }
 
+import { nanoid } from 'nanoid'
+model.id = nanoid()
 export default App;

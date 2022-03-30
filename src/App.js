@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import {idHelpers, arrayHelpers} from "./library/helpers";
+import { idHelpers } from "./library/helpers";
+import { RandomValue } from "./components/RandomValue";
+import { RepositoryLink } from "./components/RepositoryLink";
 
-console.log(arrayHelpers.getRandomElement([1, 2, 3]));
+
 
 function App() {
   return (
@@ -16,7 +18,10 @@ function App() {
         <p>
           your unique ID is {idHelpers.generateId()};
         </p>
-        <a className="App-link" target="_blank" rel="noopener noreferrer" href="https://github.com/vlitki/react-example">Github repository</a>
+        < RepositoryLink />
+        <p>
+          <RandomValue />
+        </p>
         <a
           className="App-link"
           href="https://reactjs.org"

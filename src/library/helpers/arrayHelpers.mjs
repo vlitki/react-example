@@ -1,6 +1,6 @@
 
 function getRandomElement(array) {
-    if (Array.isArray(array)) {
+    if (!Array.isArray(array)) {
      return undefined;
     }
 

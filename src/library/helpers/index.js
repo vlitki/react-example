@@ -1,2 +1,2 @@
 export {default as idHelpers } from "./idHelpers";
-export { default as arrayHelpers } from "./arrayHelpers";
+export { default as arrayHelpers } from "./arrayHelpers.mjs";

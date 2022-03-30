@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import {idHelpers, arrayHelpers} from "./library/helpers";
 
+console.log(arrayHelpers.getRandomElement([1, 2, 3]));
 
 function App() {
   return (
@@ -10,6 +12,9 @@ function App() {
         <h1>React wuuuuhuu</h1>
         <p>
           Ja sam Vlatko
+        </p>
+        <p>
+          your unique ID is {idHelpers.generateId()};
         </p>
         <a className="App-link" target="_blank" rel="noopener noreferrer" href="https://github.com/vlitki/react-example">Github repository</a>
         <a

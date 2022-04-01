@@ -18,9 +18,9 @@ function App() {
         <p>
           your unique ID is {idHelpers.generateId()};
         </p>
-        < RepositoryLink />
+        < RepositoryLink>View Github Repository</RepositoryLink>
         <p>
-          <RandomValue />
+          <RandomValue values={[4, 5, 6, 7]} />   
         </p>
         <a
           className="App-link"

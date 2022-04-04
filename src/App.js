@@ -3,10 +3,13 @@ import './App.css';
 import { idHelpers } from "./library/helpers";
 import { RandomValue } from "./components/RandomValue";
 import { RepositoryLink } from "./components/RepositoryLink";
+import { ABQuestion } from './components/ABQuestion';
 
 
 
 function App() {
+  const handleOnChoice = (choiceValue) => console.log(choiceValue);
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -22,6 +25,11 @@ function App() {
         <p>
           <RandomValue values={[4, 5, 6, 7]} />   
         </p>
+        <ABQuestion question="Make the right choice" buttonA='Blue Pill' buttonB='Red Pill'
+        buttonAValue="Blue"
+        buttonBValue="Red"
+        onChoice={handleOnChoice}
+        />
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -30,6 +38,7 @@ function App() {
         >
           Learn React
         </a>
+
       </header>
     </div>
   );

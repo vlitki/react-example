@@ -3,12 +3,20 @@ import './App.css';
 import { idHelpers } from "./library/helpers";
 import { RandomValue } from "./components/RandomValue";
 import { RepositoryLink } from "./components/RepositoryLink";
-import { ABQuestion } from './components/ABQuestion';
-
+import { Quiz } from "./components/Quiz";
+import { useState } from 'react';
 
 
 function App() {
-  const handleOnChoice = (choiceValue) => console.log(choiceValue);
+  //ovo je 3. tocka vjezbe sa stanjima
+  const [quizAnswer, setQuizAnswer] = useState(null);
+  //moramo definirati u appu taj handler
+  const handleSubmit = (answers, id) => {
+   console.log(answers, id);  //stanje ce bit promijenjeno u true kad dobijemo odgovor
+   setQuizAnswer({answers, id});
+  };
+  const id = idHelpers.generateId();
+  
   
   return (
     <div className="App">
@@ -19,17 +27,14 @@ function App() {
           Ja sam Vlatko
         </p>
         <p>
-          your unique ID is {idHelpers.generateId()};
+          your unique ID is {id};
         </p>
         < RepositoryLink>View Github Repository</RepositoryLink>
         <p>
           <RandomValue values={[4, 5, 6, 7]} />   
         </p>
-        <ABQuestion question="Make the right choice" buttonA='Blue Pill' buttonB='Red Pill'
-        buttonAValue="Blue"
-        buttonBValue="Red"
-        onChoice={handleOnChoice}
-        />
+        {quizAnswer === null && <Quiz id={id} onSubmit={handleSubmit} />}
+        {quizAnswer !== null && <div>{quizAnswer.answers.question1}</div>}
         <a
           className="App-link"
           href="https://reactjs.org"

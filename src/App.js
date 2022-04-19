@@ -1,53 +1,89 @@
-import logo from './logo.svg';
-import './App.css';
-import { idHelpers } from "./library/helpers";
-import { RandomValue } from "./components/RandomValue";
 import { RepositoryLink } from "./components/RepositoryLink";
 import { Quiz } from "./components/Quiz";
-import { useState } from 'react';
+import { useContext, useState } from "react";
+import { LoginForm } from "./components/LoginForm";
+import { Timer } from "./components/Timer";
+import { AppContext } from "./contexts/AppContext";
+import { withLocale } from "./hoc/withLocale";
+import { Heading } from "./components/typography/Heading";
+import { Paragraph } from "./components/typography/Paragraph";
+import { Button } from "./components/Button";
 
+const LocalizedRepositoryLink = withLocale(RepositoryLink);
 
 function App() {
-  //ovo je 3. tocka vjezbe sa stanjima
+  const appState = useContext(AppContext);
+  console.log(appState);
+  const [actionCount, setActionCount] = useState(0);
   const [quizAnswer, setQuizAnswer] = useState(null);
-  //moramo definirati u appu taj handler
-  const handleSubmit = (answers, id) => {
-   console.log(answers, id);  //stanje ce bit promijenjeno u true kad dobijemo odgovor
-   setQuizAnswer({answers, id});
-  };
-  const id = idHelpers.generateId();
-  
-  
+  const [loginState, setLoginState] = useState(null);
+  const [finishTime, setFinishTime] = useState(null);
+
+  const handleSubmit = (answers, id) => setQuizAnswer({ answers, id });
+  const handleStateChange = () => setActionCount((state) => state + 1);
+  const handleLogin = (formState) => setLoginState(formState);
+  const handleTimerFinish = (time) => setFinishTime(time);
+
+  let answerComponents = null;
+
+  if (quizAnswer !== null) {
+    answerComponents = Object.keys(quizAnswer.answers).map((key) => {
+      return (
+        <div key={key}>
+          {key}: {quizAnswer.answers[key]}
+        </div>
+      );
+    });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>React wuuuuhuu</h1>
-        <p>
-          Ja sam Vlatko
-        </p>
-        <p>
-          your unique ID is {id};
-        </p>
-        < RepositoryLink>View Github Repository</RepositoryLink>
-        <p>
-          <RandomValue values={[4, 5, 6, 7]} />   
-        </p>
-        {quizAnswer === null && <Quiz id={id} onSubmit={handleSubmit} />}
-        {quizAnswer !== null && <div>{quizAnswer.answers.question1}</div>}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
+        <Heading element="h1" size="6">
+          Hello world!
+        </Heading>
+        <Heading element="h2" size="5">
+          Hello world!
+        </Heading>
+        <Heading element="h3" size="4">
+          Hello world!
+        </Heading>
+        <Button buttonType="primary" onClick={() => appState.setId("foo")}>
+          Click me
+        </Button>
+        <Paragraph element="div">
+          {appState.translate("currentLocale")}: {appState.locale}
+        </Paragraph>
+        <Button buttonType="primary" onClick={() => appState.setLocale("hr")}>
+          HR
+        </Button>
+        <Button buttonType="secondary" onClick={() => appState.setLocale("en")}>
+          EN
+        </Button>
+        <Button buttonType="ghost" onClick={() => appState.setLocale("de")}>
+          DE
+        </Button>
+        <Paragraph element="p">Your action count is: {actionCount}</Paragraph>
+        <RepositoryLink>View Repository</RepositoryLink>
+        <LocalizedRepositoryLink>View Repository</LocalizedRepositoryLink>
+        {loginState === null && <LoginForm onLogin={handleLogin} />}
+        {loginState !== null && (
+          <div>
+            {loginState.name} ({loginState.email})
+          </div>
+        )}
+        {quizAnswer === null && loginState !== null && (
+          <>
+            <Timer onTick={(time) => console.log(time)} onFinish={handleTimerFinish} />
+            <Quiz onSubmit={handleSubmit} onStateChange={handleStateChange} />
+          </>
+        )}
+        {quizAnswer !== null && answerComponents}
+        {quizAnswer !== null && <div>{quizAnswer.id}</div>}
+        {finishTime !== null && <div>{finishTime} s</div>}
       </header>
     </div>
   );
 }
-
 
 export default App;
